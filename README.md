@@ -1,5 +1,11 @@
-Instalasi :
+Instalasi .venv :
+python -m venv .venv
 
+Cara mengaktifkan .venv
+.venv\Scripts\activate
+
+install dependency : 
+pip install -r requirements.txt
 
 
 git command :
