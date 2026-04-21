@@ -13,8 +13,13 @@ def create_app():
 
     # login_manager.init_app(app)
     # login_manager.login_view = 'auth.login'
-
+    app.secret_key = 'secretkey123'
+    # auth login & register
     from app.auth.routes import auth
     app.register_blueprint(auth, url_prefix='/auth')
+    
+    # form
+    from app.form.routes import form_bp
+    app.register_blueprint(form_bp, url_prefix='/form')
 
     return app

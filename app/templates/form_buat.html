@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Form Data Chatbot</h2>
+    
+    <form action="/form/submit" method="POST" enctype="multipart/form-data">
+
+        <label>Nama Chatbot</label>
+        <input type="text" name="nama_chatbot" required>
+
+        <label>Nama Usaha</label>
+        <input type="text" name="nama_usaha" required>
+
+        <label>Deskripsi Usaha</label>
+        <textarea name="deskripsi_usaha" rows="3" required></textarea>
+
+        <label>Alur Usaha</label>
+        <textarea name="alur_usaha" rows="3" required></textarea>
+
+        <label>Tujuan Chatbot</label>
+        <textarea name="tujuan_chatbot" rows="3" required></textarea>
+
+        <label>Persona</label>
+        <textarea name="persona" rows="3" required></textarea>
+
+        <label>Batasan Behavior</label>
+        <textarea name="batasan_behavior" rows="3" required></textarea>
+
+        <label>File Knowledge</label>
+        <input type="file" name="file_knowledge">
+
+
+        <button type="submit">Simpan</button>
+
+    </form>
+</div>
+
+</body>
+</html>

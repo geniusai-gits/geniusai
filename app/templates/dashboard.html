@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+    <style>
+      body {
+        font-family: Arial;
+        background: #f4f6f8;
+        margin: 0;
+      }
+
+      .navbar {
+        background: #007bff;
+        color: white;
+        padding: 15px;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      .btn {
+        padding: 10px 15px;
+        background: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+      }
+
+      .card {
+        background: white;
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <h2>Dashboard Chatbot 🤖</h2>
+    </div>
+
+    <div class="container">
+      <a href="/form" class="btn">+ Buat Chatbot</a>
+
+      <h3>Chatbot Saya</h3>
+
+      {% for chatbot in chatbots %}
+      <div>
+        <h3>{{ chatbot.nama_chatbot }}</h3>
+        <a
+          href="{{ url_for('auth.chat_page', chatbot_id=chatbot.chatbot_id) }}"
+        >
+          Buka Chat
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>

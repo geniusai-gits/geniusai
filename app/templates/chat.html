@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Chatbot</title>
+    <style>
+      body {
+        font-family: Arial;
+      }
+      .chat-box {
+        width: 400px;
+        margin: auto;
+        border: 1px solid #ccc;
+        padding: 10px;
+        height: 400px;
+        overflow-y: auto;
+      }
+      .input-box {
+        width: 400px;
+        margin: auto;
+        display: flex;
+      }
+      input {
+        flex: 1;
+        padding: 10px;
+      }
+      button {
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 align="center">Chatbot</h2>
+
+    <div class="chat-box" id="chatBox"></div>
+
+    <div class="input-box">
+      <input type="text" id="message" placeholder="Ketik pesan..." />
+      <button onclick="sendMessage()">Kirim</button>
+    </div>
+
+    <script>
+      const chatbot_id = {{ chatbot_id }};
+    </script>
+
+    <script>
+      function sendMessage() {
+        let message = document.getElementById("message").value;
+
+        fetch("/auth/send-message", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            message: message,
+            chatbot_id: chatbot_id,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            let chatBox = document.getElementById("chatBox");
+
+            chatBox.innerHTML += "<p><b>Kamu:</b> " + message + "</p>";
+            chatBox.innerHTML += "<p><b>Bot:</b> " + data.reply + "</p>";
+
+            document.getElementById("message").value = "";
+          });
+      }
+    </script>
+  </body>
+</html>
