@@ -5,35 +5,39 @@
     <title>Dashboard</title>
     <style>
       body {
-        font-family: Arial;
+        font-family: "Segoe UI";
         background: #f4f6f8;
-        margin: 0;
       }
-
       .navbar {
         background: #007bff;
-        color: white;
         padding: 15px;
+        color: white;
       }
-
       .container {
         padding: 20px;
       }
-
-      .btn {
-        padding: 10px 15px;
-        background: #28a745;
-        color: white;
-        text-decoration: none;
-        border-radius: 6px;
-      }
-
       .card {
         background: white;
         padding: 15px;
-        margin-top: 15px;
         border-radius: 10px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-top: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .card a {
+        display: inline-block;
+        margin-top: 10px;
+        background: #007bff;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        text-decoration: none;
+      }
+      .btn {
+        background: #28a745;
+        padding: 10px 15px;
+        color: white;
+        border-radius: 6px;
+        text-decoration: none;
       }
     </style>
   </head>
@@ -43,18 +47,14 @@
     </div>
 
     <div class="container">
-      <a href="/form" class="btn">+ Buat Chatbot</a>
+      <a href="/auth/create-chatbot">+ Buat Chatbot</a>
 
       <h3>Chatbot Saya</h3>
 
       {% for chatbot in chatbots %}
-      <div>
+      <div class="card">
         <h3>{{ chatbot.nama_chatbot }}</h3>
-        <a
-          href="{{ url_for('auth.chat_page', chatbot_id=chatbot.chatbot_id) }}"
-        >
-          Buka Chat
-        </a>
+        <a href="/auth/chat/{{ chatbot.chatbot_id }}">Chat</a>
       </div>
       {% endfor %}
     </div>

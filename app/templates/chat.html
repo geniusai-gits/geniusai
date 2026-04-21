@@ -4,27 +4,51 @@
     <title>Chatbot</title>
     <style>
       body {
-        font-family: Arial;
+        font-family: "Segoe UI";
+        background: #f4f6f8;
       }
       .chat-box {
-        width: 400px;
-        margin: auto;
-        border: 1px solid #ccc;
-        padding: 10px;
-        height: 400px;
+        width: 500px;
+        margin: 20px auto;
+        background: white;
+        border-radius: 10px;
+        padding: 15px;
+        height: 450px;
         overflow-y: auto;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      .message {
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 10px;
+        max-width: 70%;
+      }
+      .user {
+        background: #007bff;
+        color: white;
+        margin-left: auto;
+      }
+      .bot {
+        background: #e9ecef;
       }
       .input-box {
-        width: 400px;
+        width: 500px;
         margin: auto;
         display: flex;
       }
       input {
         flex: 1;
-        padding: 10px;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
       }
       button {
-        padding: 10px;
+        padding: 12px;
+        margin-left: 5px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
       }
     </style>
   </head>
@@ -43,14 +67,22 @@
     </script>
 
     <script>
+      document
+        .getElementById("message")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            e.preventDefault(); // biar gak reload
+            sendMessage();
+          }
+        });
       function sendMessage() {
-        let message = document.getElementById("message").value;
+        let message = document.getElementById("message").value.trim();
+
+        if (!message) return; // cegah kosong
 
         fetch("/auth/send-message", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             message: message,
             chatbot_id: chatbot_id,
@@ -60,10 +92,13 @@
           .then((data) => {
             let chatBox = document.getElementById("chatBox");
 
-            chatBox.innerHTML += "<p><b>Kamu:</b> " + message + "</p>";
-            chatBox.innerHTML += "<p><b>Bot:</b> " + data.reply + "</p>";
+            chatBox.innerHTML += `<div class="message user">${message}</div>`;
+            chatBox.innerHTML += `<div class="message bot">${data.reply}</div>`;
 
             document.getElementById("message").value = "";
+
+            // auto scroll ke bawah
+            chatBox.scrollTop = chatBox.scrollHeight;
           });
       }
     </script>
