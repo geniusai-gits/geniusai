@@ -63,8 +63,6 @@ def dashboard():
         .execute()
 
     chatbots = response.data
-    
-
     return render_template('dashboard.html', chatbots=chatbots)
 
 @auth.route('/chat/<int:chatbot_id>')
@@ -78,7 +76,6 @@ def send_message():
     message = data.get('message')
     chatbot_id = data.get('chatbot_id')
 
-    # 🔥 URL webhook n8n kamu
     N8N_WEBHOOK = "https://ahmadtarom.app.n8n.cloud/webhook/9c84e37f-d7f0-4862-9709-be08bc289d9c"
 
     response = requests.post(N8N_WEBHOOK, json={
@@ -149,10 +146,10 @@ def form_detail(chatbot_id):
         
         webhook_url = "https://ahmadtarom.app.n8n.cloud/webhook/53d52cb1-ba91-488e-ab49-ec2552705f7a"
 
-        if file and file.filename != "":
-            files = {
-                'file': (file.filename, file.read(), file.content_type)  # 🔥 GANTI stream → read()
-            }
+        # if file and file.filename != "":
+        #     files = {
+        #         'file': (file.filename, file.read(), file.content_type) 
+        #     }
 
         data_payload = {
             "chatbot_id": chatbot_id,
@@ -162,12 +159,12 @@ def form_detail(chatbot_id):
             "tujuan_chatbot": data.get('tujuan_chatbot'),
             "persona": data.get('persona'),
             "batasan_behavior": data.get('batasan_behavior'),
+            "file_url": file_url
         }
 
         try:
             response = requests.post(
                 webhook_url,
-                files=files,
                 data=data_payload
             )
             print("STATUS:", response.status_code)
